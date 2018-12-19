@@ -1,15 +1,21 @@
 {
-  "name": "graphql-socialapp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "jest"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "apollo-server": "^2.2.6",
-    "graphql": "^14.0.2"
-  }
+	"name": "graphql-socialapp",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"install": "cd client && npm install",
+		"test": "jest",
+		"start": "concurrently  \"nodemon server.js\" \"cd client && PORT=3000 npm start\""
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"apollo-server": "^2.2.6",
+		"graphql": "^14.0.2"
+	},
+	"devDependencies": {
+		"concurrently": "^4.1.0",
+		"nodemon": "^1.18.9"
+	}
 }

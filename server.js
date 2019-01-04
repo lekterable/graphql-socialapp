@@ -1,6 +1,9 @@
-const { ApolloServer, gql } = require('apollo-server')
+const express = require('express')
+const { ApolloServer, gql } = require('apollo-server-express')
 const { GraphQLScalarType } = require('graphql')
 const { Kind } = require('graphql/language')
+
+const app = express()
 
 let posts = []
 
@@ -14,9 +17,8 @@ const typeDefs = gql`
 	}
 
 	type Query {
-		getPost(author: String!): Post
-		getPosts(author: String!): [Post]
-		allPosts: [Post]
+		post(author: String!): Post
+		posts(author: String): [Post]
 	}
 
 	type Mutation {
@@ -39,9 +41,9 @@ const resolvers = {
 		}
 	}),
 	Query: {
-		getPost: (root, { author }) => posts.find(post => post.author === author),
-		getPosts: (root, { author }) => posts.filter(post => post.author === author),
-		allPosts: () => posts
+		post: (root, { author }) => posts.find(post => post.author === author),
+		posts: (root, { author }) =>
+			author ? posts.filter(post => post.author === author) : posts
 	},
 	Mutation: {
 		addPost: (root, { author, body }) => {
@@ -57,4 +59,6 @@ const server = new ApolloServer({
 	resolvers
 })
 
-server.listen().then(({ url }) => console.log(`🚀 Server ready at ${url}`))
+server.applyMiddleware({ app })
+
+app.listen({ port: 4000 }, () => console.log(`🚀 Server ready`))

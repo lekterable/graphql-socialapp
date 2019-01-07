@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Home from './Home'
 
 class App extends Component {
 	render() {
 		return (
 			<Router>
-				<div>graphql-socialapp</div>
+				<div className="container">
+					<Switch>
+						<Route component={Home} />
+					</Switch>
+				</div>
 			</Router>
 		)
 	}

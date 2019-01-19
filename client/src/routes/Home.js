@@ -12,7 +12,10 @@ class Home extends Component {
 
 		return (
 			<div className="home-page">
-				<PostList posts={posts} />
+				<div className="home-page__main">
+					<span className="home-page__title">Browse posts</span>
+					<PostList posts={posts} />
+				</div>
 			</div>
 		)
 	}

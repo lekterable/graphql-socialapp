@@ -1,6 +1,8 @@
 import React from 'react'
 import Post from './Post'
 
+import './post-list.scss'
+
 export default ({ posts }) => {
 	const filledPosts = posts.map(({ id, author, body }) => (
 		<li key={id} className="post-list__item">

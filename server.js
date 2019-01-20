@@ -11,6 +11,8 @@ let posts = [
 	{ id: '3', author: 'Kornel', body: 'Hi, its my post no.3' }
 ]
 
+const currentUser = 'Kornel'
+
 const typeDefs = gql`
 	scalar Date
 
@@ -27,7 +29,7 @@ const typeDefs = gql`
 	}
 
 	type Mutation {
-		addPost(author: String!, body: String!): Post
+		addPost(body: String!): Post
 	}
 `
 
@@ -51,10 +53,10 @@ const resolvers = {
 			author ? posts.filter(post => post.author === author) : posts
 	},
 	Mutation: {
-		addPost: (root, { author, body }) => {
+		addPost: (root, { body }) => {
 			const post = {
 				id: String(posts.length + 1),
-				author,
+				author: currentUser,
 				body,
 				creationDate: new Date()
 			}

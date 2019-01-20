@@ -11,6 +11,7 @@ const typeDefs = gql`
 	scalar Date
 
 	type Post {
+		id: String
 		author: String
 		body: String
 		creationDate: Date
@@ -47,7 +48,12 @@ const resolvers = {
 	},
 	Mutation: {
 		addPost: (root, { author, body }) => {
-			const post = { author, body, creationDate: new Date() }
+			const post = {
+				id: String(posts.length + 1),
+				author,
+				body,
+				creationDate: new Date()
+			}
 			posts = [...posts, post]
 			return post
 		}

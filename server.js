@@ -5,7 +5,11 @@ const { Kind } = require('graphql/language')
 
 const app = express()
 
-let posts = []
+let posts = [
+	{ id: '1', author: 'Kornel', body: 'Hi, its my post no.1' },
+	{ id: '2', author: 'Kornel', body: 'Hi, its my post no.2' },
+	{ id: '3', author: 'Kornel', body: 'Hi, its my post no.3' }
+]
 
 const typeDefs = gql`
 	scalar Date

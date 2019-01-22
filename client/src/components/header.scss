@@ -18,16 +18,21 @@
 	&__logo {
 		font-size: 22px;
 	}
-	&__nav {
+	.nav {
 		display: flex;
 		margin: 0 30px;
 		font-size: 18px;
 		list-style: none;
 		padding: 0;
-	}
-	&__nav__item {
-		&:hover {
-			cursor: pointer;
+		&__item {
+			text-decoration: none;
+			color: #fff;
+			&:hover {
+				cursor: pointer;
+			}
+			&--active {
+				color: #a62639;
+			}
 		}
 	}
 }

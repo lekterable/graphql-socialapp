@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { NavLink } from 'react-router-dom'
+
 import './header.scss'
 
 export default () => {
@@ -7,8 +9,15 @@ export default () => {
 		<div className="header">
 			<div className="header__left">
 				<div className="header__logo">graphql-socialapp</div>
-				<ul className="header__nav">
-					<li className="header__nav__item">Home</li>
+				<ul className="nav">
+					<NavLink
+						className="nav__item"
+						activeClassName="nav__item--active"
+						exact
+						to="/"
+					>
+						Home
+					</NavLink>
 				</ul>
 			</div>
 			<div className="header__right">

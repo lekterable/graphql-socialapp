@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 import './header.scss'
 
@@ -21,7 +21,9 @@ export default () => {
 				</ul>
 			</div>
 			<div className="header__right">
-				<div className="header__register">Register</div>
+				<Link to="/register" className="header__register">
+					<span>Register</span>
+				</Link>
 				<div className="header__login">Login</div>
 			</div>
 		</div>

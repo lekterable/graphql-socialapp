@@ -84,7 +84,18 @@ const resolvers = {
 
 const server = new ApolloServer({
 	typeDefs,
-	resolvers
+	resolvers,
+	context: ({ req }) => {
+		const token = req.headers.authorization
+		if (token)
+			return {
+				user: {
+					id: '1',
+					username: 'Kornel'
+				}
+			}
+		return {}
+	}
 })
 
 server.applyMiddleware({ app })

@@ -11,7 +11,7 @@ let posts = [
 	{ id: '3', author: 'Kornel', body: 'Hi, its my post no.3' }
 ]
 
-const currentUser = 'Kornel'
+let users = []
 
 const typeDefs = gql`
 	scalar Date
@@ -23,13 +23,22 @@ const typeDefs = gql`
 		creationDate: Date
 	}
 
+	type User {
+		id: String
+		username: String
+		email: String
+	}
+
 	type Query {
 		post(author: String!): Post
 		posts(author: String): [Post]
+		user(id: String!): User
+		users: [User]
 	}
 
 	type Mutation {
 		addPost(body: String!): Post
+		registerUser(username: String!, password: String!, email: String!): Boolean
 	}
 `
 
@@ -50,18 +59,25 @@ const resolvers = {
 	Query: {
 		post: (root, { author }) => posts.find(post => post.author === author),
 		posts: (root, { author }) =>
-			author ? posts.filter(post => post.author === author) : posts
+			author ? posts.filter(post => post.author === author) : posts,
+		user: (root, { id }) => users.find(user => user.id === id),
+		users: () => users
 	},
 	Mutation: {
 		addPost: (root, { body }) => {
 			const post = {
 				id: String(posts.length + 1),
-				author: currentUser,
+				author: 'Kornel',
 				body,
 				creationDate: new Date()
 			}
 			posts = [...posts, post]
 			return post
+		},
+		registerUser: (root, { username, password, email }) => {
+			const user = { id: String(users.length + 1), username, password, email }
+			users = [...users, user]
+			return true
 		}
 	}
 }

@@ -39,6 +39,7 @@ const typeDefs = gql`
 	type Mutation {
 		addPost(body: String!): Post
 		registerUser(username: String!, password: String!, email: String!): Boolean
+		loginUser(username: String!, password: String!): Boolean
 	}
 `
 
@@ -77,6 +78,11 @@ const resolvers = {
 		registerUser: (root, { username, password, email }) => {
 			const user = { id: String(users.length + 1), username, password, email }
 			users = [...users, user]
+			return true
+		},
+		loginUser: (root, { username, password }) => {
+			const user = users.find(user => user.username === username)
+			if (!user || user.password !== password) return false
 			return true
 		}
 	}

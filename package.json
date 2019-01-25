@@ -6,7 +6,8 @@
 	"scripts": {
 		"install": "cd client && npm install",
 		"test": "jest",
-		"start": "concurrently  \"nodemon server.js\" \"cd client && PORT=3000 npm start\""
+		"start": "node server.js",
+		"start:dev": "concurrently  \"nodemon server.js\" \"cd client && PORT=3000 npm start\""
 	},
 	"author": "",
 	"license": "ISC",

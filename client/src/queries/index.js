@@ -28,3 +28,9 @@ export const REGISTER_USER_QUERY = gql`
 		registerUser(username: $username, email: $email, password: $password)
 	}
 `
+
+export const LOGIN_USER_QUERY = gql`
+	mutation LoginUser($username: String!, $password: String!) {
+		loginUser(username: $username, password: $password)
+	}
+`

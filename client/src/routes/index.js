@@ -4,6 +4,7 @@ import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from './Home'
 import Register from './Register'
+import Login from './Login'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
@@ -22,6 +23,7 @@ class App extends Component {
 						<Header />
 						<Switch>
 							<Route exact path="/register" component={Register} />
+							<Route exact path="/login" component={Login} />
 							<Route component={Home} />
 						</Switch>
 						<Footer content={'Made with ♥ by github.com/lekterable'} />

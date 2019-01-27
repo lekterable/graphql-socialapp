@@ -24,7 +24,9 @@ export default () => {
 				<Link to="/register" className="header__register">
 					<span>Register</span>
 				</Link>
-				<div className="header__login">Login</div>
+				<Link to="/login" className="header__login">
+					<span>Login</span>
+				</Link>
 			</div>
 		</div>
 	)

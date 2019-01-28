@@ -11,7 +11,16 @@ import Footer from '../components/Footer'
 import './index.scss'
 
 const client = new ApolloClient({
-	uri: 'graphql'
+	uri: 'graphql',
+	request: operation => {
+		const token = localStorage.getItem('token')
+		if (token)
+			operation.setContext({
+				headers: {
+					authorization: `Bearer ${token}`
+				}
+			})
+	}
 })
 
 class App extends Component {

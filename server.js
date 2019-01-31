@@ -2,6 +2,7 @@ const express = require('express')
 const { ApolloServer, gql } = require('apollo-server-express')
 const { GraphQLScalarType } = require('graphql')
 const { Kind } = require('graphql/language')
+const jwt = require('jsonwebtoken')
 
 const app = express()
 
@@ -38,8 +39,8 @@ const typeDefs = gql`
 
 	type Mutation {
 		addPost(body: String!): Post
-		registerUser(username: String!, password: String!, email: String!): Boolean
-		loginUser(username: String!, password: String!): Boolean
+		registerUser(username: String!, password: String!, email: String!): String
+		loginUser(username: String!, password: String!): String
 	}
 `
 
@@ -78,12 +79,22 @@ const resolvers = {
 		registerUser: (root, { username, password, email }) => {
 			const user = { id: String(users.length + 1), username, password, email }
 			users = [...users, user]
-			return true
+			return jwt.sign(
+				{
+					id: user.id
+				},
+				process.env.JWT_SECRET
+			)
 		},
 		loginUser: (root, { username, password }) => {
 			const user = users.find(user => user.username === username)
-			if (!user || user.password !== password) return false
-			return true
+			if (!user || user.password !== password) throw new Error('User not found')
+			return jwt.sign(
+				{
+					id: user.id
+				},
+				process.env.JWT_SECRET
+			)
 		}
 	}
 }

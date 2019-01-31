@@ -59,14 +59,14 @@ const resolvers = {
 		}
 	}),
 	Query: {
-		post: (root, { author }) => posts.find(post => post.author === author),
-		posts: (root, { author }) =>
+		post: (_, { author }) => posts.find(post => post.author === author),
+		posts: (_, { author }) =>
 			author ? posts.filter(post => post.author === author) : posts,
-		user: (root, { id }) => users.find(user => user.id === id),
+		user: (_, { id }) => users.find(user => user.id === id),
 		users: () => users
 	},
 	Mutation: {
-		addPost: (root, { body }) => {
+		addPost: (_, { body }) => {
 			const post = {
 				id: String(posts.length + 1),
 				author: 'Kornel',
@@ -76,7 +76,7 @@ const resolvers = {
 			posts = [...posts, post]
 			return post
 		},
-		registerUser: (root, { username, password, email }) => {
+		registerUser: (_, { username, password, email }) => {
 			const user = { id: String(users.length + 1), username, password, email }
 			users = [...users, user]
 			return jwt.sign(
@@ -86,7 +86,7 @@ const resolvers = {
 				process.env.JWT_SECRET
 			)
 		},
-		loginUser: (root, { username, password }) => {
+		loginUser: (_, { username, password }) => {
 			const user = users.find(user => user.username === username)
 			if (!user || user.password !== password) throw new Error('User not found')
 			return jwt.sign(

@@ -11,36 +11,36 @@ import Footer from '../components/Footer'
 import './index.scss'
 
 const client = new ApolloClient({
-	uri: 'graphql',
-	request: operation => {
-		const token = localStorage.getItem('token')
-		if (token)
-			operation.setContext({
-				headers: {
-					authorization: `Bearer ${token}`
-				}
-			})
-	}
+  uri: 'graphql',
+  request: operation => {
+    const token = localStorage.getItem('token')
+    if (token)
+      operation.setContext({
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      })
+  }
 })
 
 class App extends Component {
-	render() {
-		return (
-			<ApolloProvider client={client}>
-				<Router>
-					<div className="container">
-						<Header />
-						<Switch>
-							<Route exact path="/register" component={Register} />
-							<Route exact path="/login" component={Login} />
-							<Route component={Home} />
-						</Switch>
-						<Footer content={'Made with ♥ by github.com/lekterable'} />
-					</div>
-				</Router>
-			</ApolloProvider>
-		)
-	}
+  render() {
+    return (
+      <ApolloProvider client={client}>
+        <Router>
+          <div className="container">
+            <Header />
+            <Switch>
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route component={Home} />
+            </Switch>
+            <Footer content={'Made with ♥ by github.com/lekterable'} />
+          </div>
+        </Router>
+      </ApolloProvider>
+    )
+  }
 }
 
 export default App

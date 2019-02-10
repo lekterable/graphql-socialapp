@@ -1,19 +1,19 @@
-import React, { Component } from 'react'
 import ApolloClient from 'apollo-boost'
+import React, { Component } from 'react'
 import { ApolloProvider } from 'react-apollo'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Home from './Home'
-import Register from './Register'
-import Login from './Login'
-import Header from '../components/Header'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Footer from '../components/Footer'
-
+import Header from '../components/Header'
+import { AUTH_TOKEN } from '../utils'
+import Home from './Home'
 import './index.scss'
+import Login from './Login'
+import Register from './Register'
 
 const client = new ApolloClient({
   uri: 'graphql',
   request: operation => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem(AUTH_TOKEN)
     if (token)
       operation.setContext({
         headers: {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
 import { Query } from 'react-apollo'
+import { NavLink } from 'react-router-dom'
 import { ME_QUERY } from '../queries'
-
+import { AUTH_TOKEN } from '../utils'
 import './header.scss'
 
 export default () => {
-  const [token, setToken] = useState(localStorage.getItem('token'))
+  const [token, setToken] = useState(localStorage.getItem(AUTH_TOKEN))
   return (
     <div className="header">
       <div className="header__left">
@@ -27,7 +27,7 @@ export default () => {
           <Query
             query={ME_QUERY}
             onError={() => {
-              localStorage.removeItem('token')
+              localStorage.removeItem(AUTH_TOKEN)
               setToken('')
             }}
           >

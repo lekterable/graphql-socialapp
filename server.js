@@ -60,7 +60,7 @@ const resolvers = {
     }
   }),
   Query: {
-    me: (_, __, { user }) => (user ? user : new Error('Unauthorized')),
+    me: (_, __, { user }) => (user ? user : null),
     post: (_, { author }) => posts.find(post => post.author === author),
     posts: (_, { author }) =>
       author ? posts.filter(post => post.author === author) : posts,

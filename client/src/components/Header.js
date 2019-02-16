@@ -2,6 +2,7 @@ import React from 'react'
 import { Query } from 'react-apollo'
 import { NavLink } from 'react-router-dom'
 import { ME_QUERY } from '../queries'
+import { AUTH_TOKEN } from '../utils'
 import './header.scss'
 
 export default () => {
@@ -23,7 +24,9 @@ export default () => {
       <div className="header__right">
         <Query query={ME_QUERY}>
           {({ loading, error, data: { me } = {} }) => {
-            if (loading || error || !me)
+            if (loading || error || !me) {
+              if (!loading && !me && localStorage.getItem(AUTH_TOKEN))
+                localStorage.removeItem(AUTH_TOKEN)
               return (
                 <>
                   <NavLink
@@ -42,6 +45,7 @@ export default () => {
                   </NavLink>
                 </>
               )
+            }
             return <span>{me.username}</span>
           }}
         </Query>

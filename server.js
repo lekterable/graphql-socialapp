@@ -116,7 +116,7 @@ const server = new ApolloServer({
           user
         }
       } catch (err) {
-        console.log(err)
+        console.error(err.message)
       }
     }
     return {}

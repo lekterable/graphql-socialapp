@@ -6,6 +6,11 @@ import { AUTH_TOKEN } from '../utils'
 import './header.scss'
 
 export default () => {
+  const handleLogout = client => {
+    localStorage.removeItem(AUTH_TOKEN)
+    client.resetStore()
+  }
+
   return (
     <div className="header">
       <div className="header__left">
@@ -23,10 +28,10 @@ export default () => {
       </div>
       <div className="header__right">
         <Query query={ME_QUERY}>
-          {({ loading, error, data: { me } = {} }) => {
+          {({ loading, error, data: { me } = {}, client }) => {
             if (loading || error || !me) {
               if (!loading && !me && localStorage.getItem(AUTH_TOKEN))
-                localStorage.removeItem(AUTH_TOKEN)
+                handleLogout(client)
               return (
                 <>
                   <NavLink
@@ -46,7 +51,17 @@ export default () => {
                 </>
               )
             }
-            return <span>{me.username}</span>
+            return (
+              <>
+                <span>{me.username}</span>
+                <span
+                  className="nav__item"
+                  onClick={() => handleLogout(client)}
+                >
+                  Logout
+                </span>
+              </>
+            )
           }}
         </Query>
       </div>

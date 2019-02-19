@@ -1,23 +1,28 @@
 import React, { useState } from 'react'
 import { Mutation } from 'react-apollo'
 import { LOGIN_USER_QUERY } from '../queries'
-
+import { AUTH_TOKEN } from '../utils'
 import './register-form.scss'
 
-export default () => {
+export default ({ onSubmit }) => {
   const [state, setState] = useState({ username: '', password: '' })
 
   return (
     <Mutation mutation={LOGIN_USER_QUERY}>
-      {loginUser => (
+      {(loginUser, { client }) => (
         <form
           className="register-form"
-          onSubmit={e => {
+          onSubmit={async e => {
             e.preventDefault()
             const { username, password } = state
             if (!username || !password) return
-            loginUser({ variables: { username, password } })
+            const { data } = await loginUser({
+              variables: { username, password }
+            })
+            localStorage.setItem(AUTH_TOKEN, data.loginUser)
+            await client.resetStore()
             setState({ username: '', password: '' })
+            onSubmit()
           }}
         >
           <input

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Query } from 'react-apollo'
+import Gravatar from 'react-gravatar'
 import { NavLink } from 'react-router-dom'
 import { ME_QUERY } from '../queries'
 import { AUTH_TOKEN } from '../utils'
@@ -53,7 +54,14 @@ export default () => {
             }
             return (
               <>
-                <span>{me.username}</span>
+                <div className="nav__user">
+                  <Gravatar
+                    className="nav__user-img"
+                    email={me.email}
+                    size={35}
+                  />
+                  <span className="nav__username">{me.username}</span>
+                </div>
                 <span
                   className="nav__item"
                   onClick={() => handleLogout(client)}

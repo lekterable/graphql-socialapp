@@ -1,38 +1,48 @@
 .header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 100px;
-	height: 60px;
-	background-color: #e85351;
-	color: #fff;
-	&__left {
-		display: flex;
-		align-items: center;
-	}
-	&__right {
-		display: flex;
-		justify-content: space-between;
-		min-width: 130px;
-	}
-	&__logo {
-		font-size: 22px;
-	}
-	.nav {
-		display: flex;
-		margin: 0 30px;
-		font-size: 18px;
-		list-style: none;
-		padding: 0;
-		&__item {
-			text-decoration: none;
-			color: #fff;
-			&:hover {
-				cursor: pointer;
-			}
-			&--active {
-				color: #a62639;
-			}
-		}
-	}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 100px;
+  height: 60px;
+  background-color: #e85351;
+  color: #fff;
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+  &__right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 150px;
+  }
+  &__logo {
+    font-size: 22px;
+  }
+  .nav {
+    display: flex;
+    margin: 0 30px;
+    font-size: 18px;
+    list-style: none;
+    padding: 0;
+    &__item {
+      text-decoration: none;
+      color: #fff;
+      &:hover {
+        cursor: pointer;
+      }
+      &--active {
+        color: #a62639;
+      }
+    }
+    &__user {
+      display: flex;
+      align-items: center;
+      margin-right: 50px;
+    }
+    &__user-img {
+      border-radius: 50%;
+      margin: 0 10px;
+    }
+  }
 }

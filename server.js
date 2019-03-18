@@ -109,7 +109,10 @@ const server = new ApolloServer({
     const bearer = 'Bearer '
     if (token && token.length > bearer.length) {
       try {
-        const decoded = jwt.verify(token.replace(bearer, ''), 'secret')
+        const decoded = jwt.verify(
+          token.replace(bearer, ''),
+          process.env.JWT_SECRET
+        )
         const user = users.find(user => user.id === decoded.id)
         if (!user) throw new Error('User not found')
         return {

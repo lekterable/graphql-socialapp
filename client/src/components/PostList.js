@@ -1,14 +1,13 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import Post from './Post'
 import { GET_POSTS_QUERY } from '../queries'
-
+import Post from './Post'
 import './post-list.scss'
 
 export default () => {
   return (
     <Query query={GET_POSTS_QUERY}>
-      {({ loading, error, data: { posts } }) => {
+      {({ loading, error, data: { posts } = {} }) => {
         if (loading) return <div>Loading</div>
         if (error) return <div>Error</div>
         return (

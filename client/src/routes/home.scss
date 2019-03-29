@@ -1,10 +1,18 @@
 .home-page {
-	display: flex;
-	justify-content: center;
-	flex: 1;
-	padding-top: 50px;
-	&__title {
-		font-size: 28px;
-		font-weight: bold;
-	}
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  padding-top: 50px;
+  &__profile {
+    width: 250px;
+    height: 600px;
+    margin-right: 50px;
+    margin-left: -300px;
+    border-right: #e85351 2px solid;
+    box-sizing: border-box;
+  }
+  &__title {
+    font-size: 28px;
+    font-weight: bold;
+  }
 }

@@ -1,0 +1,14 @@
+.profile {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__img {
+    border-radius: 50%;
+  }
+  &__username {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+}

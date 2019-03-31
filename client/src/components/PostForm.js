@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Mutation } from 'react-apollo'
 import { ADD_POST_QUERY, GET_POSTS_QUERY } from '../queries'
-
+import { AUTH_TOKEN } from '../utils'
 import './post-form.scss'
 
 export default () => {
@@ -36,26 +36,28 @@ export default () => {
         }
       }}
     >
-      {addPost => (
-        <form
-          onSubmit={e => {
-            e.preventDefault()
-            addPost({ variables: { body } })
-            setBody('')
-          }}
-          className="post-form"
-        >
-          <input
-            type="text"
-            value={body}
-            onChange={e => setBody(e.target.value)}
-            className="post-form__input"
-          />
-          <button type="submit" className="post-form__submit">
-            Add post
-          </button>
-        </form>
-      )}
+      {addPost =>
+        localStorage.getItem(AUTH_TOKEN) && (
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              addPost({ variables: { body } })
+              setBody('')
+            }}
+            className="post-form"
+          >
+            <input
+              type="text"
+              value={body}
+              onChange={e => setBody(e.target.value)}
+              className="post-form__input"
+            />
+            <button type="submit" className="post-form__submit">
+              Add post
+            </button>
+          </form>
+        )
+      }
     </Mutation>
   )
 }

@@ -7,19 +7,26 @@ const jwt = require('jsonwebtoken')
 const app = express()
 
 let posts = [
-  { id: '1', author: 'Kornel', body: 'Hi, its my post no.1' },
-  { id: '2', author: 'Kornel', body: 'Hi, its my post no.2' },
-  { id: '3', author: 'Kornel', body: 'Hi, its my post no.3' }
+  { id: '1', author: '1', body: 'Hi, its my post no.1' },
+  { id: '2', author: '1', body: 'Hi, its my post no.2' },
+  { id: '3', author: '1', body: 'Hi, its my post no.3' }
 ]
 
-let users = []
+let users = [
+  {
+    id: '1',
+    username: 'Kornel',
+    email: 'lekterable@gmail.com',
+    password: 'pass'
+  }
+]
 
 const typeDefs = gql`
   scalar Date
 
   type Post {
     id: String
-    author: String
+    author: User
     body: String
     creationDate: Date
   }
@@ -68,10 +75,10 @@ const resolvers = {
     users: () => users
   },
   Mutation: {
-    addPost: (_, { body }) => {
+    addPost: (_, { body }, { user }) => {
       const post = {
         id: String(posts.length + 1),
-        author: 'Kornel',
+        author: user.id,
         body,
         creationDate: new Date()
       }
@@ -98,6 +105,9 @@ const resolvers = {
         process.env.JWT_SECRET
       )
     }
+  },
+  Post: {
+    author: ({ author }) => users.find(user => user.id === author)
   }
 }
 

@@ -31,7 +31,7 @@ export default () => {
         addPost: {
           __typename: 'Post',
           id: null,
-          author: 'Kornel',
+          author: { __typename: 'User', username: 'Kornel' },
           body
         }
       }}

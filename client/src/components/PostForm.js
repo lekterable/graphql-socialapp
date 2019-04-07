@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Mutation } from 'react-apollo'
-import { ADD_POST_QUERY, GET_POSTS_QUERY } from '../queries'
+import { ADD_POST_QUERY, GET_POSTS_QUERY, ME_QUERY } from '../queries'
 import { AUTH_TOKEN } from '../utils'
 import './post-form.scss'
 
@@ -13,6 +13,7 @@ export default () => {
       mutation={ADD_POST_QUERY}
       update={(cache, { data: { addPost } }) => {
         const { posts } = cache.readQuery({ query: GET_POSTS_QUERY })
+        const { me } = cache.readQuery({ query: ME_QUERY })
         cache.writeQuery({
           query: GET_POSTS_QUERY,
           data: {
@@ -20,7 +21,13 @@ export default () => {
               ...posts,
               {
                 ...addPost,
-                id: addPost.id ? addPost.id : String(posts.length + 1)
+                id: addPost.id ? addPost.id : String(posts.length + 1),
+                author: {
+                  ...addPost.author,
+                  username: addPost.author.username
+                    ? addPost.author.username
+                    : me.username
+                }
               }
             ]
           }
@@ -31,7 +38,7 @@ export default () => {
         addPost: {
           __typename: 'Post',
           id: null,
-          author: { __typename: 'User', username: 'Kornel' },
+          author: { __typename: 'User', username: null },
           body
         }
       }}

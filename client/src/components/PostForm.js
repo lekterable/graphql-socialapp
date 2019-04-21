@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Mutation } from 'react-apollo'
-import { ADD_POST_QUERY, GET_POSTS_QUERY, ME_QUERY } from '../queries'
-import { AUTH_TOKEN } from '../utils'
-import './post-form.scss'
+import React, { useState } from 'react';
+import { Mutation } from 'react-apollo';
+import { ADD_POST_QUERY, GET_POSTS_QUERY, ME_QUERY } from '../queries';
+import auth from '../utils/auth';
+import './post-form.scss';
 
 export default () => {
   // 🎉 hooks 🎉 hype
@@ -44,7 +44,7 @@ export default () => {
       }}
     >
       {addPost =>
-        localStorage.getItem(AUTH_TOKEN) && (
+        auth.isAuthorized && (
           <form
             onSubmit={e => {
               e.preventDefault()

@@ -4,7 +4,7 @@ import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
-import { AUTH_TOKEN } from '../utils'
+import auth from '../utils/auth'
 import Home from './Home'
 import './index.scss'
 import Login from './Login'
@@ -13,11 +13,10 @@ import Register from './Register'
 const client = new ApolloClient({
   uri: 'graphql',
   request: operation => {
-    const token = localStorage.getItem(AUTH_TOKEN)
-    if (token)
+    if (auth.isAuthorized)
       operation.setContext({
         headers: {
-          authorization: `Bearer ${token}`
+          authorization: `Bearer ${auth.token}`
         }
       })
   }

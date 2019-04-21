@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Mutation } from 'react-apollo'
 import { REGISTER_USER_QUERY } from '../queries'
-import { AUTH_TOKEN } from '../utils'
+import auth from '../utils/auth'
 import './register-form.scss'
 
 export default ({ onSubmit }) => {
@@ -19,7 +19,7 @@ export default ({ onSubmit }) => {
             const { data } = await registerUser({
               variables: { username, email, password }
             })
-            localStorage.setItem(AUTH_TOKEN, data.registerUser)
+            auth.authorize(data.registerUser)
             await client.resetStore()
             onSubmit()
           }}

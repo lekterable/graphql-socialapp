@@ -3,12 +3,12 @@ import { Query } from 'react-apollo'
 import Gravatar from 'react-gravatar'
 import { NavLink } from 'react-router-dom'
 import { ME_QUERY } from '../queries'
-import { AUTH_TOKEN } from '../utils'
+import auth from '../utils/auth'
 import './header.scss'
 
 export default () => {
   const handleLogout = client => {
-    localStorage.removeItem(AUTH_TOKEN)
+    auth.clear()
     client.resetStore()
   }
 
@@ -31,8 +31,7 @@ export default () => {
         <Query query={ME_QUERY}>
           {({ loading, error, data: { me } = {}, client }) => {
             if (loading || error || !me) {
-              if (!loading && !me && localStorage.getItem(AUTH_TOKEN))
-                handleLogout(client)
+              if (!loading && !me && auth.isAuthorized) handleLogout(client)
               return (
                 <>
                   <NavLink

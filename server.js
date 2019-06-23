@@ -47,8 +47,8 @@ const typeDefs = gql`
 
   type Mutation {
     addPost(body: String!): Post
-    registerUser(username: String!, password: String!, email: String!): String
-    loginUser(username: String!, password: String!): String
+    register(username: String!, password: String!, email: String!): String
+    login(username: String!, password: String!): String
   }
 `
 
@@ -85,7 +85,7 @@ const resolvers = {
       posts = [...posts, post]
       return post
     },
-    registerUser: (_, { username, password, email }) => {
+    register: (_, { username, password, email }) => {
       const user = { id: String(users.length + 1), username, password, email }
       users = [...users, user]
       return jwt.sign(
@@ -95,7 +95,7 @@ const resolvers = {
         process.env.JWT_SECRET
       )
     },
-    loginUser: (_, { username, password }) => {
+    login: (_, { username, password }) => {
       const user = users.find(user => user.username === username)
       if (!user || user.password !== password) throw new Error('User not found')
       return jwt.sign(

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Mutation } from 'react-apollo'
-import { REGISTER_USER_QUERY } from '../queries'
+import { REGISTER_QUERY } from '../queries'
 import auth from '../utils/auth'
 import './register-form.scss'
 
@@ -8,18 +8,18 @@ export default ({ onSubmit }) => {
   const [state, setState] = useState({ username: '', email: '', password: '' })
 
   return (
-    <Mutation mutation={REGISTER_USER_QUERY}>
-      {(registerUser, { client }) => (
+    <Mutation mutation={REGISTER_QUERY}>
+      {(register, { client }) => (
         <form
           className="register-form"
           onSubmit={async e => {
             e.preventDefault()
             const { username, email, password } = state
             if (!username || !email || !password) return
-            const { data } = await registerUser({
+            const { data } = await register({
               variables: { username, email, password }
             })
-            auth.authorize(data.registerUser)
+            auth.authorize(data.register)
             await client.resetStore()
             onSubmit()
           }}

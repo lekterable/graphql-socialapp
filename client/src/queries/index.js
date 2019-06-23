@@ -33,18 +33,14 @@ export const ADD_POST_QUERY = gql`
   }
 `
 
-export const REGISTER_USER_QUERY = gql`
-  mutation RegisterUser(
-    $username: String!
-    $email: String!
-    $password: String!
-  ) {
-    registerUser(username: $username, email: $email, password: $password)
+export const REGISTER_QUERY = gql`
+  mutation Register($username: String!, $email: String!, $password: String!) {
+    register(username: $username, email: $email, password: $password)
   }
 `
 
-export const LOGIN_USER_QUERY = gql`
-  mutation LoginUser($username: String!, $password: String!) {
-    loginUser(username: $username, password: $password)
+export const LOGIN_QUERY = gql`
+  mutation Login($username: String!, $password: String!) {
+    login(username: $username, password: $password)
   }
 `

@@ -2,7 +2,7 @@ import React from 'react'
 import { Mutation, Query } from 'react-apollo'
 import Gravatar from 'react-gravatar'
 import { NavLink } from 'react-router-dom'
-import { IS_AUTHORIZED_QUERY, LOGOUT_QUERY, ME_QUERY } from '../queries'
+import { IS_AUTHORIZED_QUERY, LOGOUT_QUERY, ME_QUERY } from '../../queries'
 import './header.scss'
 
 export default () => (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import RegisterForm from '../components/RegisterForm'
 import './register.scss'
+import RegisterForm from './RegisterForm'
 
 class Register extends Component {
   handleSubmit = () => {

@@ -1,27 +1,26 @@
 import React, { useState } from 'react'
 import { Mutation } from 'react-apollo'
-import { LOGIN_QUERY } from '../queries'
-import auth from '../utils/auth'
+import { REGISTER_QUERY } from '../../queries'
+import auth from '../../utils/auth'
 import './register-form.scss'
 
 export default ({ onSubmit }) => {
-  const [state, setState] = useState({ username: '', password: '' })
+  const [state, setState] = useState({ username: '', email: '', password: '' })
 
   return (
-    <Mutation mutation={LOGIN_QUERY}>
-      {(login, { client }) => (
+    <Mutation mutation={REGISTER_QUERY}>
+      {(register, { client }) => (
         <form
           className="register-form"
           onSubmit={async e => {
             e.preventDefault()
-            const { username, password } = state
-            if (!username || !password) return
-            const { data } = await login({
-              variables: { username, password }
+            const { username, email, password } = state
+            if (!username || !email || !password) return
+            const { data } = await register({
+              variables: { username, email, password }
             })
-            auth.authorize(data.login)
+            auth.authorize(data.register)
             await client.resetStore()
-            setState({ username: '', password: '' })
             onSubmit()
           }}
         >
@@ -35,6 +34,14 @@ export default ({ onSubmit }) => {
           />
           <input
             className="input-text"
+            placeholder="email"
+            type="text"
+            required
+            value={state.email}
+            onChange={e => setState({ ...state, email: e.target.value })}
+          />
+          <input
+            className="input-text"
             placeholder="password"
             type="password"
             required
@@ -42,7 +49,7 @@ export default ({ onSubmit }) => {
             onChange={e => setState({ ...state, password: e.target.value })}
           />
           <button type="submit" className="btn btn--primary">
-            Login
+            Register
           </button>
         </form>
       )}

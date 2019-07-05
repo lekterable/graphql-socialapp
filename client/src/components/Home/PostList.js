@@ -1,6 +1,6 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import { GET_POSTS_QUERY } from '../queries'
+import { GET_POSTS_QUERY } from '../../queries'
 import Post from './Post'
 import './post-list.scss'
 

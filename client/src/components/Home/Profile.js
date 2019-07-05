@@ -1,7 +1,7 @@
 import React from 'react'
 import { Query } from 'react-apollo'
 import Gravatar from 'react-gravatar'
-import { ME_QUERY } from '../queries'
+import { ME_QUERY } from '../../queries'
 import './profile.scss'
 
 export default () => {

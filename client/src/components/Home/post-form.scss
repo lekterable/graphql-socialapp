@@ -1,0 +1,36 @@
+.post-form {
+  $default-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  height: 32px;
+  margin-top: 30px;
+  border: 1px solid lightgray;
+  border-radius: $default-radius;
+  &__input {
+    flex: 1;
+    padding: 0 10px;
+    font-size: 16px;
+    border: none;
+    border-top-left-radius: $default-radius;
+    border-bottom-left-radius: $default-radius;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__submit {
+    font-size: 14px;
+    padding: 0 15px 2px 15px;
+    border: 1px solid #e85351;
+    background: #e85351;
+    color: white;
+    border-top-right-radius: $default-radius;
+    border-bottom-right-radius: $default-radius;
+    &:hover {
+      background: #fff;
+      color: #e85351;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}

@@ -3,6 +3,9 @@
   justify-content: center;
   flex: 1;
   padding-top: 50px;
+  &__main {
+    width: 400px;
+  }
   &__profile {
     width: 250px;
     height: 600px;

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-import PostForm from '../components/PostForm'
-import PostList from '../components/PostList'
-import Profile from '../components/Profile'
-import { IS_AUTHORIZED_QUERY } from '../queries'
+import { IS_AUTHORIZED_QUERY } from '../../queries'
 import './home.scss'
+import PostForm from './PostForm'
+import PostList from './PostList'
+import Profile from './Profile'
 
 class Home extends Component {
   render() {

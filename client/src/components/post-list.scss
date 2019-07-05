@@ -1,10 +1,11 @@
 .post-list {
-	padding: 0;
-	margin-top: 30px;
-	list-style: none;
-	&__item + &__item {
-		padding-top: 15px;
-		margin-top: 15px;
-		border-top: 2px solid #e85351;
-	}
+  padding: 0;
+  margin-top: 30px;
+  list-style: none;
+  max-width: 400px;
+  &__item + &__item {
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 2px solid #e85351;
+  }
 }

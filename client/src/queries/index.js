@@ -1,5 +1,17 @@
 import { gql } from 'apollo-boost'
 
+export const IS_AUTHORIZED_QUERY = gql`
+  query IsAuthorized {
+    isAuthorized @client
+  }
+`
+
+export const LOGOUT_QUERY = gql`
+  mutation Logout {
+    logout @client
+  }
+`
+
 export const ME_QUERY = gql`
   query Me {
     me {

@@ -12,6 +12,25 @@ import Register from './Register'
 
 const client = new ApolloClient({
   uri: 'graphql',
+  clientState: {
+    defaults: {
+      isAuthorized: auth.isAuthorized
+    },
+    resolvers: {
+      Query: {
+        isAuthorized: () => auth.isAuthorized
+      },
+      Mutation: {
+        logout: (_, __, { client }) => {
+          auth.clear()
+          client.resetStore()
+        }
+      }
+    }
+  },
+  onError: ({ graphQLErrors }) => {
+    console.log(graphQLErrors)
+  },
   request: operation => {
     if (auth.isAuthorized)
       operation.setContext({

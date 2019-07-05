@@ -1,5 +1,5 @@
 const express = require('express')
-const { ApolloServer, gql } = require('apollo-server-express')
+const { ApolloServer, gql, ApolloError } = require('apollo-server-express')
 const { GraphQLScalarType } = require('graphql')
 const { Kind } = require('graphql/language')
 const jwt = require('jsonwebtoken')
@@ -67,7 +67,8 @@ const resolvers = {
     }
   }),
   Query: {
-    me: (_, __, { user }) => (user ? user : null),
+    me: (_, __, { user }) =>
+      user ? user : new ApolloError('UNAUTHORIZED', 401),
     post: (_, { author }) => posts.find(post => post.author === author),
     posts: (_, { author }) =>
       author ? posts.filter(post => post.author === author) : posts,

@@ -1,5 +1,5 @@
 import ApolloClient from 'apollo-boost'
-import React, { Component } from 'react'
+import React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import auth from '../../utils/auth'
@@ -41,24 +41,18 @@ const client = new ApolloClient({
   }
 })
 
-class App extends Component {
-  render() {
-    return (
-      <ApolloProvider client={client}>
-        <Router>
-          <div className="container">
-            <Header />
-            <Switch>
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Route component={Home} />
-            </Switch>
-            <Footer content={'Made with ♥ by github.com/lekterable'} />
-          </div>
-        </Router>
-      </ApolloProvider>
-    )
-  }
-}
-
-export default App
+export default () => (
+  <ApolloProvider client={client}>
+    <Router>
+      <div className="container">
+        <Header />
+        <Switch>
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Route component={Home} />
+        </Switch>
+        <Footer content={'Made with ♥ by github.com/lekterable'} />
+      </div>
+    </Router>
+  </ApolloProvider>
+)

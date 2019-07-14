@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Query } from 'react-apollo'
 import { IS_AUTHORIZED_QUERY } from '../../queries'
 import './home.scss'
@@ -6,21 +6,15 @@ import PostForm from './PostForm'
 import PostList from './PostList'
 import Profile from './Profile'
 
-class Home extends Component {
-  render() {
-    return (
-      <div className="home-page">
-        <Profile />
-        <div className="home-page__main">
-          <span className="home-page__title">Browse posts</span>
-          <Query query={IS_AUTHORIZED_QUERY}>
-            {({ data: { isAuthorized } }) => isAuthorized && <PostForm />}
-          </Query>
-          <PostList />
-        </div>
-      </div>
-    )
-  }
-}
-
-export default Home
+export default () => (
+  <div className="home-page">
+    <Profile />
+    <div className="home-page__main">
+      <span className="home-page__title">Browse posts</span>
+      <Query query={IS_AUTHORIZED_QUERY}>
+        {({ data: { isAuthorized } }) => isAuthorized && <PostForm />}
+      </Query>
+      <PostList />
+    </div>
+  </div>
+)

@@ -1,18 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './login.scss'
 import LoginForm from './LoginForm'
 
-class Login extends Component {
-  handleSubmit = () => this.props.history.push('/')
+export default ({ history }) => {
+  const handleSubmit = () => history.push('/')
 
-  render() {
-    return (
-      <div className="login-page">
-        <span className="login-page__title">Login</span>
-        <LoginForm onSubmit={this.handleSubmit} />
-      </div>
-    )
-  }
+  return (
+    <div className="login-page">
+      <span className="login-page__title">Login</span>
+      <LoginForm onSubmit={handleSubmit} />
+    </div>
+  )
 }
-
-export default Login

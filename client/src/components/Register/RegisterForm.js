@@ -1,58 +1,65 @@
-import React, { useState } from 'react'
+import { Field, Form, Formik } from 'formik'
+import React from 'react'
 import { Mutation } from 'react-apollo'
+import * as Yup from 'yup'
 import { REGISTER_QUERY } from '../../queries'
 import auth from '../../utils/auth'
+import Input from '../shared/Input'
 import './register-form.scss'
 
-export default ({ onSubmit }) => {
-  const [state, setState] = useState({ username: '', email: '', password: '' })
+export default ({ onSubmit }) => (
+  <Mutation mutation={REGISTER_QUERY}>
+    {(register, { client }) => (
+      <Formik
+        initialValues={{ username: '', email: '', password: '' }}
+        onSubmit={async values => {
+          const { data } = await register({
+            variables: { ...values }
+          })
+          auth.authorize(data.register)
+          await client.resetStore()
+          onSubmit()
+        }}
+        validationSchema={validationSchema}
+      >
+        {({ isValid, isSubmitting }) => (
+          <Form className="register-form">
+            <Field
+              component={Input}
+              className="input-text"
+              name="username"
+              placeholder="username"
+            />
+            <Field
+              component={Input}
+              className="input-text"
+              name="email"
+              placeholder="email"
+            />
+            <Field
+              component={Input}
+              className="input-text"
+              name="password"
+              placeholder="password"
+            />
+            <button
+              disabled={!isValid || isSubmitting}
+              type="submit"
+              className="btn btn--primary"
+            >
+              Register
+            </button>
+          </Form>
+        )}
+      </Formik>
+    )}
+  </Mutation>
+)
 
-  return (
-    <Mutation mutation={REGISTER_QUERY}>
-      {(register, { client }) => (
-        <form
-          className="register-form"
-          onSubmit={async e => {
-            e.preventDefault()
-            const { username, email, password } = state
-            if (!username || !email || !password) return
-            const { data } = await register({
-              variables: { username, email, password }
-            })
-            auth.authorize(data.register)
-            await client.resetStore()
-            onSubmit()
-          }}
-        >
-          <input
-            className="input-text"
-            placeholder="username"
-            type="text"
-            required
-            value={state.username}
-            onChange={e => setState({ ...state, username: e.target.value })}
-          />
-          <input
-            className="input-text"
-            placeholder="email"
-            type="text"
-            required
-            value={state.email}
-            onChange={e => setState({ ...state, email: e.target.value })}
-          />
-          <input
-            className="input-text"
-            placeholder="password"
-            type="password"
-            required
-            value={state.password}
-            onChange={e => setState({ ...state, password: e.target.value })}
-          />
-          <button type="submit" className="btn btn--primary">
-            Register
-          </button>
-        </form>
-      )}
-    </Mutation>
-  )
-}
+const validationSchema = Yup.object().shape({
+  username: Yup.string().required('Username cannot be empty'),
+  email: Yup.string()
+    .email('Email is invalid')
+    .required('Email cannot be empty'),
+  password: Yup.string().required('Password cannot be empty')
+})

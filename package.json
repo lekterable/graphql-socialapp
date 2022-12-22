@@ -16,7 +16,7 @@
 		"enzyme": "^3.9.0",
 		"express": "^4.16.4",
 		"graphql": "^14.0.2",
-		"jsonwebtoken": "^8.4.0"
+		"jsonwebtoken": "^9.0.0"
 	},
 	"devDependencies": {
 		"concurrently": "^4.1.0",
